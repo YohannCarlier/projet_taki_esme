@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  release:
+    types: [released, prereleased]
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Install Dependencies
+        run: deno install
+      
+      - name: Run tests
+        run: deno task test
+
+      - name: Build Package
+        run: deno task build
+
+      - name: Package Output
+        run: deno task package
+
+      - name: Archive compressed build
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: dist/build.tar
+
+      - name: Attach build.tar to release
+        run: |
+          gh release upload ${{ github.event.release.tag_name }} dist/build.tar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Buildah Build
+        id: build-container
+        uses: redhat-actions/buildah-build@v2
+        with:
+          containerfiles: |
+            ./infra/Containerfile
+          image: ${{github.event.repository.full_name}}
+          tags: latest ${{ github.sha }}
+          oci: true
+          platforms: linux/amd64, linux/arm64
+
+      - name: Push To Registry
+        id: push-to-registry
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-container.outputs.image }}
+          tags: ${{ steps.build-container.outputs.tags }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Print image url
+        run: echo "Image pushed to ${{ steps.push-to-registry.outputs.registry-paths }}"
