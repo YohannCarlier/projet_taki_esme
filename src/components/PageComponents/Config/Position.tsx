@@ -84,74 +84,74 @@ export const Position = () => {
                 enumValue: getAllFlags(),
               },
             },
-            {
-              type: "number",
-              name: "rxGpio",
-              label: "Receive Pin",
-              description: "GPS module RX pin override",
-            },
-            {
-              type: "number",
-              name: "txGpio",
-              label: "Transmit Pin",
-              description: "GPS module TX pin override",
-            },
-            {
-              type: "number",
-              name: "gpsEnGpio",
-              label: "Enable Pin",
-              description: "GPS module enable pin override",
-            },
+            // {
+            //   type: "number",
+            //   name: "rxGpio",
+            //   label: "Receive Pin",
+            //   description: "GPS module RX pin override",
+            // },
+            // {
+            //   type: "number",
+            //   name: "txGpio",
+            //   label: "Transmit Pin",
+            //   description: "GPS module TX pin override",
+            // },
+            // {
+            //   type: "number",
+            //   name: "gpsEnGpio",
+            //   label: "Enable Pin",
+            //   description: "GPS module enable pin override",
+            // },
           ],
         },
-        {
-          label: "Intervals",
-          description: "How often to send position updates",
-          fields: [
-            {
-              type: "number",
-              name: "positionBroadcastSecs",
-              label: "Broadcast Interval",
-              description: "How often your position is sent out over the mesh",
-              properties: {
-                suffix: "Seconds",
-              },
-            },
-            {
-              type: "number",
-              name: "gpsUpdateInterval",
-              label: "GPS Update Interval",
-              description: "How often a GPS fix should be acquired",
-              properties: {
-                suffix: "Seconds",
-              },
-            },
-            {
-              type: "number",
-              name: "broadcastSmartMinimumDistance",
-              label: "Smart Position Minimum Distance",
-              description:
-                "Minimum distance (in meters) that must be traveled before a position update is sent",
-              disabledBy: [
-                {
-                  fieldName: "positionBroadcastSmartEnabled",
-                },
-              ],
-            },
-            {
-              type: "number",
-              name: "broadcastSmartMinimumIntervalSecs",
-              label: "Smart Position Minimum Interval",
-              description:
-                "Minimum interval (in seconds) that must pass before a position update is sent",
-              disabledBy: [
-                {
-                  fieldName: "positionBroadcastSmartEnabled",
-                },
-              ],
-            },
-          ],
-        },
+        // {
+        //   label: "Intervals",
+        //   description: "How often to send position updates",
+        //   fields: [
+        //     {
+        //       type: "number",
+        //       name: "positionBroadcastSecs",
+        //       label: "Broadcast Interval",
+        //       description: "How often your position is sent out over the mesh",
+        //       properties: {
+        //         suffix: "Seconds",
+        //       },
+        //     },
+        //     {
+        //       type: "number",
+        //       name: "gpsUpdateInterval",
+        //       label: "GPS Update Interval",
+        //       description: "How often a GPS fix should be acquired",
+        //       properties: {
+        //         suffix: "Seconds",
+        //       },
+        //     },
+        //     {
+        //       type: "number",
+        //       name: "broadcastSmartMinimumDistance",
+        //       label: "Smart Position Minimum Distance",
+        //       description:
+        //         "Minimum distance (in meters) that must be traveled before a position update is sent",
+        //       disabledBy: [
+        //         {
+        //           fieldName: "positionBroadcastSmartEnabled",
+        //         },
+        //       ],
+        //     },
+        //     {
+        //       type: "number",
+        //       name: "broadcastSmartMinimumIntervalSecs",
+        //       label: "Smart Position Minimum Interval",
+        //       description:
+        //         "Minimum interval (in seconds) that must pass before a position update is sent",
+        //       disabledBy: [
+        //         {
+        //           fieldName: "positionBroadcastSmartEnabled",
+        //         },
+        //       ],
+        //     },
+        //   ],
+        // },
       ]}
     />
   );
